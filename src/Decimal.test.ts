@@ -66,4 +66,36 @@ describe("Decimal", () => {
     expect(y.compare(z)).toBe(CompareResult.LessThan);
     expect(z.compare(y)).toBe(CompareResult.GreaterThan);
   });
+
+  test("Zero subtraction", () => {
+    const x = Decimal.fromString("123456789");
+    const y = Decimal.fromString("0");
+
+    expect(x.sub(y).toString()).toBe("123456789");
+    expect(y.sub(x).toString()).toBe("-123456789");
+  });
+
+  test("Zero subtraction fractions", () => {
+    const x = Decimal.fromString("12345.6789");
+    const y = Decimal.fromString("0");
+
+    expect(x.sub(y).toString()).toBe("12345.6789");
+    expect(y.sub(x).toString()).toBe("-12345.6789");
+  });
+
+  test("Positive subtraction", () => {
+    const x = Decimal.fromString("223456");
+    const y = Decimal.fromString("853724");
+
+    expect(x.sub(y).toString()).toBe("-630268");
+    expect(y.sub(x).toString()).toBe("630268");
+  });
+
+  test("Positive subtraction with fractions", () => {
+    const x = Decimal.fromString("435897.4357");
+    const y = Decimal.fromString("489.513");
+
+    expect(x.sub(y).toString()).toBe("435407.9227");
+    expect(y.sub(x).toString()).toBe("-435407.9227");
+  });
 });

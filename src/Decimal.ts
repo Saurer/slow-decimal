@@ -1,5 +1,5 @@
 import { ParseError } from "./errors";
-import { add, CompareResult, compare } from "./math";
+import { add, CompareResult, compare, sub } from "./math";
 
 const DELIMITER = ".";
 
@@ -33,6 +33,22 @@ export default class Decimal {
       Math.max(fractionLength - value.low.length, 0)
     );
     const result = add(
+      this.high + this.low + thisZeros,
+      value.high + value.low + valueZeros
+    );
+
+    const newHigh = result.slice(0, result.length - fractionLength);
+    const newLow = result.slice(result.length - fractionLength);
+    return new Decimal(newHigh, newLow);
+  }
+
+  public sub(value: Decimal): Decimal {
+    const fractionLength = Math.max(this.low.length, value.low.length);
+    const thisZeros = "0".repeat(Math.max(fractionLength - this.low.length, 0));
+    const valueZeros = "0".repeat(
+      Math.max(fractionLength - value.low.length, 0)
+    );
+    const result = sub(
       this.high + this.low + thisZeros,
       value.high + value.low + valueZeros
     );

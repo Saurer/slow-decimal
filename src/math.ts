@@ -40,6 +40,50 @@ export function add(a: string, b: string): string {
   return result.join("");
 }
 
+export function sub(value: string, subtrahend: string): string {
+  const compareResult = compare(value, subtrahend);
+  let valueA: string, valueB: string;
+  let negate: boolean;
+  const result: number[] = [];
+
+  switch (compareResult) {
+    case CompareResult.Equal:
+      return "0";
+
+    case CompareResult.GreaterThan:
+      valueA = value;
+      valueB = subtrahend;
+      negate = false;
+      break;
+
+    case CompareResult.LessThan:
+      valueA = subtrahend;
+      valueB = value;
+      negate = true;
+      break;
+  }
+
+  let shift = false;
+  for (let i = 1; i <= valueA.length; i++) {
+    let x = DIGITS[valueA.charAt(valueA.length - i)] - Number(shift);
+    if (x < 0) {
+      x = DIGITS[9];
+    }
+    const y = DIGITS[valueB.length - i < 0 ? "0" : valueB[valueB.length - i]];
+
+    if (x >= y) {
+      result.unshift(x - y);
+      shift = false;
+    } else {
+      const index = 10 - (y - x);
+      result.unshift(DIGITS[index]);
+      shift = true;
+    }
+  }
+
+  return (negate ? "-" : "") + result.join("");
+}
+
 export function compare(valueA: string, valueB: string): CompareResult {
   if (valueA.length > valueB.length) {
     return CompareResult.GreaterThan;
