@@ -42,6 +42,14 @@ describe("Decimal", () => {
     expect(y.compare(x)).toBe(CompareResult.LessThan);
     expect(x.compare(x)).toBe(CompareResult.Equal);
     expect(y.compare(y)).toBe(CompareResult.Equal);
+
+    expect(x.greaterThan(y)).toBe(true);
+    expect(x.lessThan(y)).toBe(false);
+    expect(x.equalTo(y)).toBe(false);
+
+    expect(y.greaterThan(x)).toBe(false);
+    expect(y.lessThan(x)).toBe(true);
+    expect(y.equalTo(x)).toBe(false);
   });
 
   test("Compare with fractions", () => {

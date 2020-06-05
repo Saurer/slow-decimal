@@ -53,6 +53,18 @@ export default class Decimal {
     return compare(x, y);
   }
 
+  public greaterThan(value: Decimal): boolean {
+    return this.compare(value) === CompareResult.GreaterThan;
+  }
+
+  public lessThan(value: Decimal): boolean {
+    return this.compare(value) === CompareResult.LessThan;
+  }
+
+  public equalTo(value: Decimal): boolean {
+    return this.compare(value) === CompareResult.Equal;
+  }
+
   public toString(): string {
     const high = this.high || "0";
 
