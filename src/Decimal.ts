@@ -43,14 +43,12 @@ export default class Decimal {
   }
 
   public toString(): string {
-    if (this.low && this.high) {
-      return [this.high, DELIMITER, this.low].join("");
-    } else if (this.high) {
-      return this.high;
-    } else if (this.low) {
-      return ["0", DELIMITER, this.low].join("");
+    const high = this.high || "0";
+
+    if (this.low) {
+      return [high, DELIMITER, this.low].join("");
     } else {
-      return "0";
+      return high;
     }
   }
 }
