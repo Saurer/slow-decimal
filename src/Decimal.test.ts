@@ -1,4 +1,5 @@
 import Decimal from "./";
+import { CompareResult } from "./math";
 
 describe("Decimal", () => {
   test("Zero addition", () => {
@@ -31,5 +32,30 @@ describe("Decimal", () => {
 
     expect(x.add(y).toString()).toBe("436386.9487");
     expect(y.add(x).toString()).toBe("436386.9487");
+  });
+
+  test("Compare with zero", () => {
+    const x = Decimal.fromString("123456789");
+    const y = Decimal.fromString("0");
+
+    expect(x.compare(y)).toBe(CompareResult.GreaterThan);
+    expect(y.compare(x)).toBe(CompareResult.LessThan);
+    expect(x.compare(x)).toBe(CompareResult.Equal);
+    expect(y.compare(y)).toBe(CompareResult.Equal);
+  });
+
+  test("Compare with fractions", () => {
+    const x = Decimal.fromString("12345.6789");
+    const y = Decimal.fromString("12345");
+    const z = Decimal.fromString("12345.6780");
+
+    expect(x.compare(y)).toBe(CompareResult.GreaterThan);
+    expect(y.compare(x)).toBe(CompareResult.LessThan);
+
+    expect(x.compare(z)).toBe(CompareResult.GreaterThan);
+    expect(z.compare(x)).toBe(CompareResult.LessThan);
+
+    expect(y.compare(z)).toBe(CompareResult.LessThan);
+    expect(z.compare(y)).toBe(CompareResult.GreaterThan);
   });
 });
