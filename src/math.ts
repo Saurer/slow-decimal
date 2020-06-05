@@ -68,12 +68,14 @@ export function sub(value: string, subtrahend: string): string {
     let x = DIGITS[valueA.charAt(valueA.length - i)] - Number(shift);
     if (x < 0) {
       x = DIGITS[9];
+      shift = true;
+    } else {
+      shift = false;
     }
     const y = DIGITS[valueB.length - i < 0 ? "0" : valueB[valueB.length - i]];
 
     if (x >= y) {
       result.unshift(x - y);
-      shift = false;
     } else {
       const index = 10 - (y - x);
       result.unshift(DIGITS[index]);

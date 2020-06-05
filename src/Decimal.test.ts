@@ -83,12 +83,28 @@ describe("Decimal", () => {
     expect(y.sub(x).toString()).toBe("-12345.6789");
   });
 
+  test("Equal subtraction", () => {
+    const x = Decimal.fromString("4815162342");
+    const y = Decimal.fromString("4815162342");
+
+    expect(x.sub(y).toString()).toBe("0");
+    expect(y.sub(x).toString()).toBe("0");
+  });
+
   test("Positive subtraction", () => {
     const x = Decimal.fromString("223456");
     const y = Decimal.fromString("853724");
 
     expect(x.sub(y).toString()).toBe("-630268");
     expect(y.sub(x).toString()).toBe("630268");
+  });
+
+  test("Positive subtraction with register shift", () => {
+    const x = Decimal.fromString("223456");
+    const y = Decimal.fromString("853024");
+
+    expect(x.sub(y).toString()).toBe("-629568");
+    expect(y.sub(x).toString()).toBe("629568");
   });
 
   test("Positive subtraction with fractions", () => {
