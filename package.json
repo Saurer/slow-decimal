@@ -1,0 +1,22 @@
+{
+  "name": "slow-decimal",
+  "version": "1.0.0",
+  "description": "Slow math based on strings",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saurer/slow-decimal"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc"
+  },
+  "author": "Saurer",
+  "license": "Unlicense",
+  "devDependencies": {
+    "@types/jest": "^25.2.3",
+    "jest": "^26.0.1",
+    "ts-jest": "^26.1.0",
+    "typescript": "^3.9.5"
+  }
+}
