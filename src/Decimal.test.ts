@@ -34,6 +34,22 @@ describe("Decimal", () => {
     expect(y.add(x).toString()).toBe("436386.9487");
   });
 
+  test("Negative addition", () => {
+    const x = Decimal.fromString("-223456");
+    const y = Decimal.fromString("853724");
+
+    expect(x.add(y).toString()).toBe("630268");
+    expect(y.add(x).toString()).toBe("1077180");
+  });
+
+  test("Negative addition with fractions", () => {
+    const x = Decimal.fromString("-435897.4357");
+    const y = Decimal.fromString("489.513");
+
+    expect(x.add(y).toString()).toBe("-435407.9227");
+    expect(y.add(x).toString()).toBe("436386.9487");
+  });
+
   test("Compare with zero", () => {
     const x = Decimal.fromString("123456789");
     const y = Decimal.fromString("0");
@@ -65,6 +81,14 @@ describe("Decimal", () => {
 
     expect(y.compare(z)).toBe(CompareResult.LessThan);
     expect(z.compare(y)).toBe(CompareResult.GreaterThan);
+  });
+
+  test("Compare with negative", () => {
+    const x = Decimal.fromString("481516");
+    const y = Decimal.fromString("-2342");
+
+    expect(x.compare(y)).toBe(CompareResult.GreaterThan);
+    expect(y.compare(x)).toBe(CompareResult.LessThan);
   });
 
   test("Zero subtraction", () => {
@@ -113,5 +137,31 @@ describe("Decimal", () => {
 
     expect(x.sub(y).toString()).toBe("435407.9227");
     expect(y.sub(x).toString()).toBe("-435407.9227");
+  });
+
+  test("Negative subtraction", () => {
+    const x = Decimal.fromString("-223456");
+    const y = Decimal.fromString("-853724");
+    const z = Decimal.fromString("4096");
+
+    expect(x.sub(y).toString()).toBe("630268");
+    expect(y.sub(x).toString()).toBe("-630268");
+    expect(x.sub(z).toString()).toBe("-227552");
+    expect(z.sub(x).toString()).toBe("227552");
+    expect(y.sub(z).toString()).toBe("-857820");
+    expect(z.sub(y).toString()).toBe("857820");
+  });
+
+  test("Negative subtraction with fractions", () => {
+    const x = Decimal.fromString("-435897.4357");
+    const y = Decimal.fromString("-489.513");
+    const z = Decimal.fromString("4096.78");
+
+    expect(x.sub(y).toString()).toBe("-435407.9227");
+    expect(y.sub(x).toString()).toBe("435407.9227");
+    expect(x.sub(z).toString()).toBe("-439994.2157");
+    expect(z.sub(x).toString()).toBe("439994.2157");
+    expect(y.sub(z).toString()).toBe("-4586.293");
+    expect(z.sub(y).toString()).toBe("4586.293");
   });
 });
